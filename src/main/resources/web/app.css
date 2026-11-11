@@ -1,0 +1,294 @@
+:root {
+  color-scheme: light;
+  --ink: #1e1b16;
+  --muted: #6f675c;
+  --paper: #efe8dc;
+  --panel: #f7f3eb;
+  --line: #ddd4c6;
+  --accent: #8d4b12;
+  --accent-ink: #fff8f2;
+  --ok: #1f7a45;
+  --warn: #9a6b12;
+  --log: #1c1a17;
+  --log-text: #e6e0d4;
+  --err: #ffb4a8;
+  --sys: #b3a894;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font: 14px/1.45 "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+button:hover { border-color: #b7ad9e; }
+
+button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+#startBtn {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.brand {
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+#listen {
+  color: var(--muted);
+  flex: 1;
+}
+
+#layout {
+  display: flex;
+  height: calc(100% - 48px);
+}
+
+aside {
+  width: 320px;
+  flex: none;
+  border-right: 1px solid var(--line);
+  padding: 12px;
+  overflow: auto;
+  background: var(--panel);
+}
+
+#addProject {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#addProject input { flex: 1; min-width: 0; }
+
+input, select, textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  padding: 6px 8px;
+}
+
+textarea { resize: vertical; }
+
+.project {
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-head, .config, .orphan, .add-config {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-head { margin-bottom: 4px; }
+
+.project-name {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-weight: 650;
+  cursor: default;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+
+.config {
+  width: 100%;
+  justify-content: space-between;
+  margin: 2px 0;
+  text-align: left;
+}
+
+.config.selected {
+  border-color: var(--accent);
+  background: #fff4ea;
+}
+
+.config small, .project-name small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.config i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex: none;
+}
+
+.config i.orphan { background: var(--warn); }
+
+.add-config { flex-wrap: wrap; margin-top: 4px; }
+
+.add-config button, .project-head button, .orphan button {
+  padding: 2px 8px;
+  color: var(--muted);
+}
+
+#orphans { margin-top: 8px; }
+
+#orphans h2 {
+  margin: 8px 0;
+  font-size: 13px;
+  color: var(--warn);
+}
+
+.orphan {
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+
+#empty {
+  margin: auto;
+  color: var(--muted);
+  max-width: 360px;
+  text-align: center;
+}
+
+#workspace {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#workspace[hidden], #empty[hidden], #settingsDialog[hidden], #toast[hidden], #copyAttach[hidden] {
+  display: none !important;
+}
+
+#toolbar {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+#runTitle { font-weight: 650; }
+
+#runMeta {
+  color: var(--muted);
+  margin: 2px 0 8px;
+  word-break: break-all;
+}
+
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+#log {
+  flex: 1;
+  min-height: 160px;
+  overflow: auto;
+  background: var(--log);
+  color: var(--log-text);
+  padding: 10px 12px;
+  font: 13px/1.45 Consolas, "Cascadia Mono", monospace;
+}
+
+.line { white-space: pre-wrap; word-break: break-word; }
+.line.err { color: var(--err); }
+.line.sys { color: var(--sys); }
+
+#editor {
+  border-top: 1px solid var(--line);
+  padding: 10px 14px 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  max-height: 42%;
+  overflow: auto;
+  background: var(--panel);
+}
+
+#editor .wide, #editor .row, #editor .actions, #hint {
+  grid-column: 1 / -1;
+}
+
+#editor .row {
+  display: flex;
+  gap: 12px;
+}
+
+#editor .row label { flex: 1; }
+
+label { display: grid; gap: 4px; color: var(--muted); font-size: 12px; }
+label input, label select, label textarea { color: var(--ink); font-size: 14px; }
+label.check { display: flex; align-items: center; gap: 8px; color: var(--ink); font-size: 14px; }
+label.check input { width: auto; }
+
+#hint, .note { margin: 0; color: var(--muted); }
+
+#deleteConfig { margin-left: auto; }
+
+#settingsDialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 27, 22, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#settingsForm {
+  width: min(440px, calc(100% - 32px));
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+#settingsForm h2 { margin: 0; font-size: 16px; }
+
+#toast {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 12px;
+  border-radius: 4px;
+  max-width: min(520px, calc(100% - 32px));
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>light-ide</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header>
+    <div class="brand">light-ide</div>
+    <div id="listen"></div>
+    <button id="settingsBtn" type="button">设置</button>
+  </header>
+  <div id="layout">
+    <aside>
+      <form id="addProject">
+        <input id="projectPath" placeholder="项目目录，例如 D:\workspace\demo" spellcheck="false">
+        <button type="submit">添加</button>
+      </form>
+      <div id="projects"></div>
+      <div id="orphans"></div>
+    </aside>
+    <main>
+      <div id="empty">从左侧添加一个项目目录，然后启动 Maven、Gradle、Tomcat 或脚本。</div>
+      <div id="workspace" hidden>
+        <div id="toolbar">
+          <div id="runTitle"></div>
+          <div id="runMeta"></div>
+          <div class="actions">
+            <button id="startBtn" type="button">启动</button>
+            <button id="stopBtn" type="button">停止</button>
+            <button id="restartBtn" type="button">重启</button>
+            <button id="copyAttach" type="button" hidden>复制 Cursor 附加配置</button>
+          </div>
+        </div>
+        <div id="log"></div>
+        <form id="editor">
+          <div class="row">
+            <label>名称<input id="name" spellcheck="false"></label>
+            <label>类型
+              <select id="type">
+                <option value="maven">maven</option>
+                <option value="gradle">gradle</option>
+                <option value="tomcat">tomcat</option>
+                <option value="script">script</option>
+              </select>
+            </label>
+          </div>
+          <label class="wide" data-types="maven">goals<input id="goals" placeholder="spring-boot:run" spellcheck="false"></label>
+          <label class="wide" data-types="gradle">任务<input id="tasks" placeholder="bootRun" spellcheck="false"></label>
+          <label class="wide" data-types="script">脚本<input id="script" placeholder="D:\workspace\demo\run.bat" spellcheck="false"></label>
+          <label class="wide" data-types="maven gradle script">额外参数<input id="args" spellcheck="false"></label>
+          <label class="wide" data-types="tomcat">CATALINA_BASE<input id="catalinaBase" placeholder="留空则使用 CATALINA_HOME" spellcheck="false"></label>
+          <label class="wide" data-types="tomcat">war<input id="warPath" placeholder="启动前复制到 webapps，可留空" spellcheck="false"></label>
+          <label class="wide">工作目录<input id="cwd" placeholder="留空则使用项目目录" spellcheck="false"></label>
+          <div class="row" data-types="maven gradle tomcat">
+            <label class="check"><input id="debug" type="checkbox">调试模式</label>
+            <label>端口<input id="debugPort" type="number" min="1" max="65535" value="5005"></label>
+          </div>
+          <label class="wide">环境变量<textarea id="env" rows="3" placeholder="KEY=VALUE" spellcheck="false"></textarea></label>
+          <p id="hint"></p>
+          <div class="actions">
+            <button type="submit">保存配置</button>
+            <button id="deleteConfig" type="button">删除配置</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+  <div id="settingsDialog" hidden>
+    <form id="settingsForm">
+      <h2>设置</h2>
+      <label>端口<input id="setPort" type="number" min="1" max="65535"></label>
+      <label>JAVA_HOME<input id="setJavaHome" spellcheck="false"></label>
+      <label>Maven<input id="setMaven" spellcheck="false"></label>
+      <label>Gradle<input id="setGradle" spellcheck="false"></label>
+      <label>CATALINA_HOME<input id="setCatalina" spellcheck="false"></label>
+      <p class="note">端口改完要重新启动 light-ide。Maven 默认加 -B，Gradle 默认加 --no-daemon。</p>
+      <div class="actions">
+        <button type="submit">保存</button>
+        <button id="closeSettings" type="button">关闭</button>
+      </div>
+    </form>
+  </div>
+  <div id="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
